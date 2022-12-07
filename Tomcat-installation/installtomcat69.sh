@@ -6,11 +6,11 @@ cd /opt
 sudo yum install git wget vim -y
 sudo yum install java-1.8.0-openjdk-devel -y
 # Download tomcat software and extract it.
-# dowanload and extract tomcat software
-sudo wget https://dlcdn.apache.org/tomcat/tomcat-9/v9.0.69/bin/apache-tomcat-9.0.69.tar.gz
-sudo tar -xvf apache-tomcat-9.0.69.tar.gz
-sudo rm apache-tomcat-9.0.69.tar.gz
-sudo mv apache-tomcat-9.0.69 tomcat9
+# download and extract tomcat software
+sudo wget https://dlcdn.apache.org/tomcat/tomcat-9/v9.0.70/bin/apache-tomcat-9.0.70.tar.gz
+sudo tar -xvf apache-tomcat-9.0.70.tar.gz
+sudo rm apache-tomcat-9.0.70.tar.gz
+sudo mv apache-tomcat-9.0.70 tomcat10
 sudo chmod 777 -R /opt/tomcat9
 sudo sh /opt/tomcat9/bin/startup.sh
 # create a soft link to start and stop tomcat from anywhere
@@ -20,3 +20,20 @@ sudo ln -s /opt/tomcat9/bin/shutdown.sh /usr/bin/stoptomcat
 sudo starttomcat
 echo "end on tomcat installation"
 sudo su - ec2-user
+
+
+After Installation
+To Enable External Access 
+ vi /opt/tomcat10/webapps/manager/META-INF/context.xml
+ 
+Then comment out
+  <!--  <Valve className="org.apache.catalina.valves.RemoteAddrValve"
+         allow="127\.\d+\.\d+\.\d+|::1|0:0:0:0:0:0:0:1" />
+  <Manager sessionAttributeValueClassNameFilter="java\.lang\.(?:Boolean|Integer|Long|Number|String)|org\.apache\.catalina\.filters\.CsrfPreventionFilter\$LruCache(?:\$1)?|java\.util\.(?:Linked)?HashMap"/>
+          -->
+To add Users
+vi /opt/tomcat10/conf/tomcat-users
+ 
+To Update Port Number
+vi /opt/tomcat9/conf/server.xml
+
